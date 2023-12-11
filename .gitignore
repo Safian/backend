@@ -1,1 +1,9 @@
+### Gradle ###
+.gradle
 /build/
+/eureka/.gradle/
+/eureka/build/
+/library/.gradle/
+/library/build/
+/gateway/.gradle/
+/gateway/build/
