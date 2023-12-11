@@ -1,9 +1,48 @@
-### Gradle ###
+.idea
+cerise-dependencies/.gradle/7.6.1
+gc.properties
+buildOutputCleanup.lock
+*/build
+*/build/*
+
 .gradle
-/build/
-/eureka/.gradle/
-/eureka/build/
-/library/.gradle/
-/library/build/
-/gateway/.gradle/
-/gateway/build/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+.DS_Store
+
+docker-compose.yml
+prod-compose.yml
+.env
+
+dump/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/```
+yev-fbqw-qzg
+files
