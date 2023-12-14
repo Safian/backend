@@ -18,10 +18,8 @@ repositories {
 	mavenCentral()
 }
 
-extra["springCloudVersion"] = "2023.0.0"
-
 dependencies {
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.10")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

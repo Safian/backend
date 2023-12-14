@@ -1,0 +1,1 @@
+extra["springCloudVersion"] = "2023.0.0"
