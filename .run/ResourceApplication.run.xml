@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ResourceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="backend.resource.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.safian.backend.resource.ResourceApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

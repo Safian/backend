@@ -1,28 +1,37 @@
 server:
-  port: 55500
+  port: 9000
 
 spring:
   application:
     name: auth
   mvc:
     log-request-details: true
-  r2dbc:
-    url: r2dbc:mariadb://localhost:3306/database?serverTimezone=UTC&useUnicode=yes&characterEncoding=utf8
+  devtools:
+    livereload:
+      port: 35731
+  jpa:
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    show-sql: true
+  datasource:
+    password: Error34!
     username: root
-    password: Almafa123
+    url: jdbc:mariadb://localhost:3306/database?createDatabaseIfNotExist=true&serverTimezone=UTC&useUnicode=yes&characterEncoding=utf8
+    driver-class-name: org.mariadb.jdbc.Driver
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
 
 logging:
   level:
     org:
       springframework:
         web: debug
+        security:
+          oauth2: info
     com:
       netflix:
         discovery: error
