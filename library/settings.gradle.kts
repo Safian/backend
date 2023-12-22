@@ -1,1 +1,1 @@
-rootProject.name = "multimodul"
+rootProject.name = "library"

@@ -1,10 +1,10 @@
 package com.safian.backend.auth
 
-import com.safian.backend.auth.model.Role
-import com.safian.backend.auth.model.RoleName
-import com.safian.backend.auth.model.User
-import com.safian.backend.auth.services.RoleService
-import com.safian.backend.auth.services.UserService
+import com.safian.multimodul.models.Role
+import com.safian.multimodul.models.RoleName
+import com.safian.multimodul.models.User
+import com.safian.multimodul.service.RoleService
+import com.safian.multimodul.service.UserService
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
