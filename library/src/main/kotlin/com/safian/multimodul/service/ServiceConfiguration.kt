@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service
 
 @Service
 @EnableConfigurationProperties(ServiceProperties::class)
-public class ServiceConfiguration {
+class ServiceConfiguration {
     private var serviceProperties: ServiceProperties? = null
 
-    fun ServiceConfiguration(serviceProperties: ServiceProperties?) {
+    fun serviceConfiguration(serviceProperties: ServiceProperties?) {
         this.serviceProperties = serviceProperties
     }
 

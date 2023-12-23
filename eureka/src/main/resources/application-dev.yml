@@ -1,6 +1,12 @@
+server:
+  port: 8761
+
 spring:
   application:
     name: eureka
+  devtools:
+    livereload:
+      port: 35729
 eureka:
   client:
     register-with-eureka: false
@@ -8,5 +14,16 @@ eureka:
   instance:
     lease-renewal-interval-in-seconds: 5
     lease-expiration-duration-in-seconds: 10
-server:
-  port: 8761
+
+
+
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+        security:
+          oauth2: info
+    com:
+      netflix:
+        discovery: error

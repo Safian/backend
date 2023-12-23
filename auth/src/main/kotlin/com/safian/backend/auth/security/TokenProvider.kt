@@ -1,53 +1,96 @@
 package com.safian.backend.auth.security
 
-import com.nimbusds.jose.jwk.JWKSelector
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.SecurityContext;
-import org.springframework.context.annotation.Bean
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration
-
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
+import com.safian.backend.auth.exception.InvalidJwtException
+import com.safian.multimodul.service.ServiceProperties
+import io.jsonwebtoken.Claims
+import io.jsonwebtoken.ExpiredJwtException
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.MalformedJwtException
+import io.jsonwebtoken.SignatureAlgorithm
+import jakarta.servlet.http.HttpServletRequest
+import org.springframework.stereotype.Component
+import org.springframework.util.StringUtils
 import java.util.*
 
-
-@Bean
-fun jwtDecoder(jwkSource: JWKSource<SecurityContext>): JwtDecoder {
-    return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource)
-}
-
-@Bean
-@Throws(NoSuchAlgorithmException::class)
-fun jwkSource(): JWKSource<SecurityContext> {
-    val rsaKey: RSAKey = generateRsa()
-    val jwkSet: JWKSet = JWKSet(rsaKey)
-    return JWKSource<SecurityContext> { jwkSelector: JWKSelector, securityContext: SecurityContext? ->
-        jwkSelector.select(
-            jwkSet
-        )
+@Component
+class TokenProvider(
+    private val securityProperties: ServiceProperties,
+) {
+    private fun extractAllClaims(token: String): Claims {
+        return Jwts.parser()
+            .setSigningKey(securityProperties.secret)
+            .parseClaimsJws(token)
+            .body
     }
-}
 
-@Throws(NoSuchAlgorithmException::class)
-private fun generateRsa(): RSAKey {
-    val keyPair = generateRsaKey()
-    val publicKey: RSAPublicKey = keyPair.public as RSAPublicKey
-    val privateKey: RSAPrivateKey = keyPair.private as RSAPrivateKey
-    return RSAKey.Builder(publicKey)
-        .privateKey(privateKey)
-        .keyID(UUID.randomUUID().toString())
-        .build()
-}
+    private fun <T> extractClaim(token: String, claimsResolver: (Claims) -> T): T {
+        val claims = extractAllClaims(token)
+        return claimsResolver(claims)
+    }
 
-@Throws(NoSuchAlgorithmException::class)
-private fun generateRsaKey(): KeyPair {
-    val keyPairGenerator = KeyPairGenerator.getInstance("RSA")
-    keyPairGenerator.initialize(2048)
-    return keyPairGenerator.generateKeyPair()
+    fun extractEmail(token: String): String {
+        return extractClaim(token) { claims -> claims.subject }
+    }
+
+    private fun generateTokenFromClaims(
+        claims: Claims,
+        tokenValidity: Long,
+    ): String {
+        val now = Date()
+
+        return Jwts.builder()
+            .setClaims(claims)
+            .setIssuer("AuthServiceApplication")
+            .setIssuedAt(now)
+            .setExpiration(Date(now.time + tokenValidity))
+            .signWith(SignatureAlgorithm.HS256, securityProperties.secret)
+            .compact()
+    }
+
+    fun generateToken(
+        email: String,
+        roles: List<String>,
+    ): String {
+        val claims = Jwts.claims()
+            .setSubject(email).apply {
+                this["role"] = roles
+            }
+        return generateTokenFromClaims(claims, securityProperties.expiration.toLong())
+    }
+
+    fun generateRefreshToken(claims: Claims): String {
+        return generateTokenFromClaims(claims, securityProperties.expiration.toLong())
+    }
+
+    fun validateToken(token: String): Boolean {
+        try {
+            Jwts.parser()
+                .setSigningKey(securityProperties.secret)
+                .parseClaimsJws(token)
+            return true
+        } catch (e: MalformedJwtException) {
+            throw InvalidJwtException("JWT token is malformed.")
+        } catch (e: ExpiredJwtException) {
+            throw InvalidJwtException("JWT token is expired.")
+        } catch (e: Exception) {
+            throw InvalidJwtException("JWT token validation failed.")
+        }
+    }
+
+    fun getTokenFromHeader(request: HttpServletRequest): String? {
+        val bearerToken = request.getHeader("Authorization")
+
+        return if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            bearerToken.substring(7, bearerToken.length)
+        } else {
+            null
+        }
+    }
+
+    fun getClaimsFromToken(token: String): Claims? {
+        return Jwts.parser()
+            .setSigningKey(securityProperties.secret)
+            .parseClaimsJws(token)
+            ?.body
+    }
 }

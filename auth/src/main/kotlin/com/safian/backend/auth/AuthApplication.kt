@@ -4,19 +4,26 @@ import com.safian.multimodul.models.Role
 import com.safian.multimodul.models.RoleName
 import com.safian.multimodul.models.User
 import com.safian.multimodul.service.RoleService
+import com.safian.multimodul.service.ServiceProperties
 import com.safian.multimodul.service.UserService
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 import org.springframework.context.annotation.Bean
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
 
-@SpringBootApplication
 @EnableDiscoveryClient
-@ConfigurationPropertiesScan
+@EnableConfigurationProperties(ServiceProperties::class)
+@SpringBootApplication(scanBasePackages = ["com.safian.multimodul", "com.safian.backend.auth"])
+@EntityScan(basePackages = ["com.safian.multimodul"])
+@EnableJpaRepositories(basePackages = ["com.safian.multimodul"])
+@ConfigurationPropertiesScan(basePackages = ["com.safian.multimodul"])
 class AuthApplication {
 
 	@Bean

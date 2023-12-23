@@ -1,67 +1,33 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-	id("org.springframework.boot") version "3.2.0"
-	id("io.spring.dependency-management") version "1.1.4"
 	kotlin("jvm") version "1.9.20"
 	kotlin("plugin.spring") version "1.9.20"
-	kotlin("plugin.lombok") version "1.9.21"
-	id("io.freefair.lombok") version "8.4"
-	kotlin("kapt") version "1.9.21"
 }
 
-kapt {
-	keepJavacAnnotationProcessors = true
-}
-
-group = "com.safian.backend"
 version = "0.0.1-SNAPSHOT"
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_17
-}
-
-repositories {
-	mavenCentral()
+	sourceCompatibility = JavaVersion.VERSION_19
 }
 
 dependencies {
 	implementation( project(":library"))
-	implementation("org.springframework.security:spring-security-oauth2-authorization-server")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-	implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
-	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.boot:spring-boot-starter-web:3.1.0")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer:4.0.1")
+	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.0.0")
+	implementation("org.springframework.boot:spring-boot-starter-actuator:3.1.0")
 
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.20-RC")
 
-	implementation("org.mariadb.jdbc:mariadb-java-client")
+	implementation("org.mariadb.jdbc:mariadb-java-client:3.1.2")
 
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
-	compileOnly("org.projectlombok:lombok")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.security:spring-security-test")
-}
-
-dependencyManagement {
-	imports {
-		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
-	}
-}
-
-tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs += "-Xjsr305=strict"
-		jvmTarget = "17"
-	}
-}
-
-tasks.withType<Test> {
-	useJUnitPlatform()
+	compileOnly("org.projectlombok:lombok:1.18.26")
+	developmentOnly("org.springframework.boot:spring-boot-devtools:3.0.4")
+	testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
+	testImplementation("org.springframework.security:spring-security-test:6.0.2")
 }
