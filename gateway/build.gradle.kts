@@ -20,7 +20,7 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j:3.0.0")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.0.0")
 	implementation("org.mariadb.jdbc:mariadb-java-client:3.1.2")
-	//developmentOnly("org.springframework.boot:spring-boot-devtools:3.0.4")
+	developmentOnly("org.springframework.boot:spring-boot-devtools:3.0.4")
 	testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
 	testImplementation("io.projectreactor:reactor-test:3.5.4")
 }
