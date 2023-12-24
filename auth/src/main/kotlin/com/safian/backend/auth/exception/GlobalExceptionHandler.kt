@@ -1,5 +1,6 @@
 package com.safian.backend.auth.exception
 
+import com.safian.multimodul.exceptions.InvalidJwtException
 import com.safian.multimodul.exceptions.ResourceNotFoundException
 import com.safian.multimodul.models.ApiResponse
 import org.springframework.http.HttpHeaders

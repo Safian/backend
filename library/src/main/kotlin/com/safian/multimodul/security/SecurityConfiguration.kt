@@ -1,7 +1,7 @@
-package com.safian.backend.auth.security
+package com.safian.multimodul.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.safian.backend.auth.utility.EndPoint
+import com.safian.multimodul.utility.EndPoint
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

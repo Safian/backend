@@ -27,7 +27,7 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
 	compileOnly("org.projectlombok:lombok:1.18.26")
-	developmentOnly("org.springframework.boot:spring-boot-devtools:3.0.4")
+	//developmentOnly("org.springframework.boot:spring-boot-devtools:3.0.4")
 	testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
 	testImplementation("org.springframework.security:spring-security-test:6.0.2")
 }

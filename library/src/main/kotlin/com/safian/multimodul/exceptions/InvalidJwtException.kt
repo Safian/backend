@@ -1,4 +1,4 @@
-package com.safian.backend.auth.exception
+package com.safian.multimodul.exceptions
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus

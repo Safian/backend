@@ -1,6 +1,4 @@
 plugins {
-	id("org.springframework.boot")
-	id("io.spring.dependency-management")
 	kotlin("jvm") version "1.9.20"
 	kotlin("plugin.spring") version "1.9.20"
 }
@@ -19,4 +17,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation:3.0.4")
 	implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.20-RC")
 	testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
+
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 }

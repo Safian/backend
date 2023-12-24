@@ -1,4 +1,4 @@
-package com.safian.backend.auth.utility
+package com.safian.multimodul.utility
 
 object EndPoint {
     const val AUTH_ROOT_PATH = "/auth"

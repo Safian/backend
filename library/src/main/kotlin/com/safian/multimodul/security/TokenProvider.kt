@@ -1,6 +1,6 @@
-package com.safian.backend.auth.security
+package com.safian.multimodul.security
 
-import com.safian.backend.auth.exception.InvalidJwtException
+import com.safian.multimodul.exceptions.InvalidJwtException
 import com.safian.multimodul.service.ServiceProperties
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
@@ -12,13 +12,15 @@ import org.springframework.stereotype.Component
 import org.springframework.util.StringUtils
 import java.util.*
 
+
 @Component
 class TokenProvider(
     private val securityProperties: ServiceProperties,
 ) {
     private fun extractAllClaims(token: String): Claims {
-        return Jwts.parser()
-            .setSigningKey(securityProperties.secret)
+        return Jwts.parserBuilder()
+            .setSigningKey(securityProperties.getKey())
+            .build()
             .parseClaimsJws(token)
             .body
     }
@@ -43,7 +45,7 @@ class TokenProvider(
             .setIssuer("AuthServiceApplication")
             .setIssuedAt(now)
             .setExpiration(Date(now.time + tokenValidity))
-            .signWith(SignatureAlgorithm.HS256, securityProperties.secret)
+            .signWith(securityProperties.getKey(), SignatureAlgorithm.HS256)
             .compact()
     }
 
@@ -64,8 +66,9 @@ class TokenProvider(
 
     fun validateToken(token: String): Boolean {
         try {
-            Jwts.parser()
-                .setSigningKey(securityProperties.secret)
+            Jwts.parserBuilder()
+                .setSigningKey(securityProperties.getKey())
+                .build()
                 .parseClaimsJws(token)
             return true
         } catch (e: MalformedJwtException) {
@@ -88,9 +91,10 @@ class TokenProvider(
     }
 
     fun getClaimsFromToken(token: String): Claims? {
-        return Jwts.parser()
-            .setSigningKey(securityProperties.secret)
+        return Jwts.parserBuilder()
+            .setSigningKey(securityProperties.getKey())
+            .build()
             .parseClaimsJws(token)
-            ?.body
+            .body
     }
 }

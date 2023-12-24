@@ -1,21 +1,19 @@
 package com.safian.backend.auth.services
 
 import com.safian.backend.auth.exception.ResourceAlreadyExistException
-import com.safian.multimodul.models.RoleName
-import com.safian.multimodul.models.User
 import com.safian.backend.auth.model.UserAndToken
 import com.safian.backend.auth.model.dto.SignInDto
 import com.safian.backend.auth.model.dto.SignUpDto
-import com.safian.backend.auth.security.TokenProvider
 import com.safian.multimodul.exceptions.ResourceNotFoundException
+import com.safian.multimodul.models.RoleName
+import com.safian.multimodul.models.User
 import com.safian.multimodul.repositories.RoleRepository
 import com.safian.multimodul.repositories.UserRepository
+import com.safian.multimodul.security.TokenProvider
 import io.jsonwebtoken.Claims
-import org.springframework.security.authentication.AbstractUserDetailsReactiveAuthenticationManager
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 

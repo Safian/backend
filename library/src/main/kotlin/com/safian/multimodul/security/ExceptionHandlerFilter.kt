@@ -1,4 +1,4 @@
-package com.safian.backend.auth.security
+package com.safian.multimodul.security
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest

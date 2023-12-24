@@ -3,10 +3,10 @@ package com.safian.backend.auth.controller
 import com.safian.backend.auth.model.UserAndToken
 import com.safian.backend.auth.model.dto.SignInDto
 import com.safian.backend.auth.model.dto.SignUpDto
-import com.safian.backend.auth.utility.Constant
-import com.safian.backend.auth.utility.EndPoint
 import com.safian.backend.auth.services.AuthService
 import com.safian.multimodul.models.ApiResponse
+import com.safian.multimodul.utility.Constant
+import com.safian.multimodul.utility.EndPoint
 import io.jsonwebtoken.Claims
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity

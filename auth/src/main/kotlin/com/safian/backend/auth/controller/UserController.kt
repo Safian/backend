@@ -1,9 +1,9 @@
 package com.safian.backend.auth.controller
 
-import com.safian.multimodul.models.User
-import com.safian.backend.auth.utility.EndPoint
-import com.safian.multimodul.service.UserService
 import com.safian.multimodul.models.ApiResponse
+import com.safian.multimodul.models.User
+import com.safian.multimodul.service.UserService
+import com.safian.multimodul.utility.EndPoint
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.GetMapping

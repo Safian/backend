@@ -2,13 +2,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("io.spring.dependency-management")
-    id("org.springframework.boot") version "3.2.0" apply false
+    id("org.springframework.boot")
     kotlin("jvm") version "1.9.20"
-    kotlin("plugin.spring") version "1.9.20" apply false
+    kotlin("plugin.spring") version "1.9.20"
     kotlin("kapt")
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -23,6 +24,11 @@ allprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
 }
 
 subprojects {
@@ -35,20 +41,9 @@ subprojects {
         plugin("io.spring.dependency-management")
     }
 
-    repositories {
-        mavenCentral()
-    }
-
     dependencyManagement {
         imports {
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
-        }
-    }
-
-    tasks.withType<KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = "19"
         }
     }
 
