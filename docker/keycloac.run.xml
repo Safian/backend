@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="keycloac" type="docker-deploy" factoryName="docker-image" server-name="Docker">
+    <deployment type="docker-image">
+      <settings>
+        <option name="imageTag" value="quay.io/keycloak/keycloak:latest" />
+        <option name="command" value="start-dev" />
+        <option name="containerName" value="keycloak" />
+        <option name="entrypoint" value="" />
+        <option name="commandLineOptions" value="" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>

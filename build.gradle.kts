@@ -8,12 +8,9 @@ plugins {
     kotlin("kapt")
 }
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
 
-allprojects {
+subprojects {
+
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs += "-Xjsr305=strict"
@@ -29,9 +26,6 @@ allprojects {
         mavenCentral()
         mavenLocal()
     }
-}
-
-subprojects {
 
     val springBootVersion = project.properties["spring-boot.version"] as String
     val springCloudVersion = project.properties["spring-cloud.version"] as String

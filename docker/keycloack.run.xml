@@ -3,19 +3,9 @@
     <deployment type="docker-image">
       <settings>
         <option name="imageTag" value="keycloak/keycloak:latest" />
+        <option name="command" value="" />
         <option name="containerName" value="KeycloackServer" />
-        <option name="envVars">
-          <list>
-            <DockerEnvVarImpl>
-              <option name="name" value="KEYCLOAK_ADMIN" />
-              <option name="value" value="admin" />
-            </DockerEnvVarImpl>
-            <DockerEnvVarImpl>
-              <option name="name" value="KEYCLOAK_ADMIN_PASSWORD" />
-              <option name="value" value="Error34!" />
-            </DockerEnvVarImpl>
-          </list>
-        </option>
+        <option name="entrypoint" value="/opt/keycloak/bin/" />
         <option name="portBindings">
           <list>
             <DockerPortBindingImpl>
